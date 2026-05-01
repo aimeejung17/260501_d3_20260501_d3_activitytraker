@@ -71,7 +71,7 @@ git commit --amend --reset-author --no-edit
 
 이 PC 프로젝트에는 이미 원격이 잡혀 있을 수 있어요. 주소는 예시로 아래와 같아요.
 
-`https://github.com/aimeejung17/20260501_d3_activitytraker.git`
+`https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker.git`
 
 **아직 `push` 전이면** (로그인 창 뜨면 깃허브로 허용):
 
@@ -83,7 +83,7 @@ git push -u origin main
 **원격 주소만 바꾸고 싶으면:**
 
 ```powershell
-git remote set-url origin https://github.com/aimeejung17/20260501_d3_activitytraker.git
+git remote set-url origin https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker.git
 ```
 
 이미 `git init` 과 커밋까지 해둔 상태면 **`git push -u origin main`** 이 마지막 단계예요.
