@@ -69,18 +69,24 @@ git config user.email "본인이메일"
 git commit --amend --reset-author --no-edit
 ```
 
-깃허브에 만든 저장소 주소가 예를 들어  
-`https://github.com/내아이디/20260501_d3_activitytraker.git` 이라면:
+이 PC 프로젝트에는 이미 원격이 잡혀 있을 수 있어요. 주소는 예시로 아래와 같아요.
+
+`https://github.com/aimeejung/20260501_d3_activitytraker.git`
+
+**아직 `push` 전이면** (로그인 창 뜨면 깃허브로 허용):
 
 ```powershell
-git remote add origin https://github.com/내아이디/20260501_d3_activitytraker.git
+cd d:\cursor\20260501_d3_activitytraker
 git push -u origin main
 ```
 
-- `내아이디` 는 본인 깃허브 아이디로 바꾸기.  
-- 로그인 창이 뜨면 깃허브 계정으로 허용.
+**원격 주소만 바꾸고 싶으면:**
 
-이미 `git init` 까지 해둔 상태면 **`git add` / `commit` / `remote` / `push`** 만 하면 됩니다.
+```powershell
+git remote set-url origin https://github.com/aimeejung/20260501_d3_activitytraker.git
+```
+
+이미 `git init` 과 커밋까지 해둔 상태면 **`git push -u origin main`** 이 마지막 단계예요.
 
 ---
 
