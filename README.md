@@ -47,14 +47,26 @@
 
 ### 2) PC에서 연결해서 올리기 (처음 한 번)
 
+이미 이 폴더에서 `git init` 과 첫 커밋이 되어 있을 수 있어요. **처음부터 할 때만** 아래처럼 하면 됩니다.
+
 Android Studio 안 **Terminal** 이나 **PowerShell** 을 열고, **이 프로젝트 폴더로 이동한 뒤** (경로는 본인 PC에 맞게):
 
 ```powershell
 cd d:\cursor\20260501_d3_activitytraker
 git init
+git config user.name "깃허브에 쓸 닉네임"
+git config user.email "깃허브 계정 이메일"
 git add .
 git commit -m "Initial commit: FlowXP Android MVP"
 git branch -M main
+```
+
+**작성자 이름이 잘못 들어갔다면** (예: `Your Name`):
+
+```powershell
+git config user.name "본인닉네임"
+git config user.email "본인이메일"
+git commit --amend --reset-author --no-edit
 ```
 
 깃허브에 만든 저장소 주소가 예를 들어  
