@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlowXP 데모 — 지금은 레벨업 중입니다</title>
+  <meta name="description" content="FlowXP 안드로이드 앱 UI·규칙 체험용 웹 데모. 실제 SNS 사용 시간과 연동되지 않습니다." />
+  <style>
+    :root {
+      --primary: #6750a4;
+      --on-primary: #fff;
+      --surface: #fffbfe;
+      --muted: #625b71;
+      --card: #f7f2fa;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(165deg, #e8def8 0%, var(--surface) 45%);
+      color: #1c1b1f;
+      padding: 24px 16px 48px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+    .sub {
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0;
+    }
+    .banner {
+      background: #fff3e0;
+      border: 1px solid #ffb74d;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .banner strong { color: #e65100; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .level {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      color: var(--primary);
+      margin: 8px 0;
+    }
+    .xp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .bar-wrap {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+    label.slider-label {
+      display: block;
+      margin-top: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .stat {
+      background: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .stat b {
+      display: block;
+      font-size: 1.25rem;
+      color: #1c1b1f;
+      margin-top: 4px;
+    }
+    .apps {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .apps li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #e7e0ec;
+      font-size: 0.9rem;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    button {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    button.secondary {
+      background: #fff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    footer a { color: var(--primary); }
+    .share {
+      margin-top: 20px;
+      padding: 16px;
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px dashed var(--primary);
+    }
+    .share h3 { margin: 0 0 10px; font-size: 1rem; }
+    .share input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.8rem;
+    }
+    .share p { margin: 8px 0 0; font-size: 0.8rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FlowXP</h1>
+    <p class="sub">지금은 레벨업 중입니다</p>
+  </header>
+
+  <div class="banner">
+    <strong>웹 데모예요.</strong> 숫자는 전부 이 페이지에서만 바뀌는 가짜 데이터이고,
+    실제 인스타·유튜브 사용 시간과는 <strong>연결되지 않아요</strong>.
+    진짜 측정은 안드로이드 앱에서만 됩니다.
+  </div>
+
+  <div class="card">
+    <div style="text-align:center;font-size:0.9rem;color:var(--muted);">Level</div>
+    <div class="level" id="level">1</div>
+    <div class="xp-row">
+      <span>XP</span>
+      <span id="xpText">0 / 100</span>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="xpBar" style="width:0%"></div></div>
+  </div>
+
+  <div class="card">
+    <label class="slider-label" for="minutes">오늘 SNS 사용 (가정, 분)</label>
+    <input type="range" id="minutes" min="0" max="240" value="45" />
+    <div class="stats">
+      <div class="stat">오늘 사용 <b id="minVal">45</b>분</div>
+      <div class="stat">점수 <b id="scoreVal">—</b></div>
+      <div class="stat">오늘 XP(예상) <b id="xpPreview">—</b></div>
+      <div class="stat">스트릭(연습) <b id="streakVal">0</b>일</div>
+    </div>
+    <ul class="apps" id="appList"></ul>
+    <div class="btn-row">
+      <button type="button" id="btnRandom">랜덤으로 채우기</button>
+      <button type="button" class="secondary" id="btnXp">XP 30 받기 (연습)</button>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin:12px 0 8px;">스트릭은 슬라이더와 별개예요. 아래는 “상상으로 하루가 지났다” 연습용이에요.</p>
+    <div class="btn-row">
+      <button type="button" class="secondary" id="btnStreakOk">오늘 성공(60분 이하) 가정</button>
+      <button type="button" class="secondary" id="btnStreakFail">오늘 실패 가정</button>
+    </div>
+  </div>
+
+  <div class="share" id="shareBox">
+    <h3>친구랑 이 주소로 공유하기</h3>
+    <input type="text" readonly id="shareUrl" value="" />
+    <p>GitHub Pages를 켜두면 위 주소로 누구나 이 데모를 열 수 있어요. (아래 README 참고)</p>
+  </div>
+
+  <footer>
+    안드로이드 실제 앱 저장소:
+    <a href="https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker" target="_blank" rel="noopener">GitHub</a>
+    <br />점수 규칙은 앱 명세와 동일: 0–30분→10점 … 181분+→0점, XP = 점수×10
+  </footer>
+
+  <script>
+    function scoreFromMinutes(m) {
+      if (m <= 30) return 10;
+      if (m <= 60) return 8;
+      if (m <= 120) return 5;
+      if (m <= 180) return 3;
+      return 0;
+    }
+    const apps = [
+      { name: "Instagram", key: 0.28 },
+      { name: "YouTube", key: 0.35 },
+      { name: "TikTok", key: 0.22 },
+      { name: "기타", key: 0.15 },
+    ];
+
+    let level = 1;
+    let currentXp = 0;
+    let streakDemo = 0;
+
+    const el = (id) => document.getElementById(id);
+
+    function renderApps(total) {
+      const list = el("appList");
+      list.innerHTML = "";
+      let left = total;
+      apps.forEach((a, i) => {
+        const portion = i === apps.length - 1 ? left : Math.round(total * a.key);
+        left -= portion;
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${a.name}</span><span>${Math.max(0, portion)}분</span>`;
+        list.appendChild(li);
+      });
+    }
+
+    function renderXp() {
+      el("level").textContent = String(level);
+      el("xpText").textContent = currentXp + " / 100";
+      el("xpBar").style.width = Math.min(100, currentXp) + "%";
+      while (currentXp >= 100) {
+        currentXp -= 100;
+        level += 1;
+        el("level").textContent = String(level);
+        el("xpText").textContent = currentXp + " / 100";
+        el("xpBar").style.width = Math.min(100, currentXp) + "%";
+      }
+    }
+
+    function syncFromSlider() {
+      const m = +el("minutes").value;
+      el("minVal").textContent = String(m);
+      const s = scoreFromMinutes(m);
+      el("scoreVal").textContent = String(s);
+      el("xpPreview").textContent = String(s * 10);
+      renderApps(m);
+    }
+
+    function renderStreak() {
+      el("streakVal").textContent = String(streakDemo);
+    }
+
+    el("minutes").addEventListener("input", () => {
+      syncFromSlider();
+    });
+
+    el("btnRandom").addEventListener("click", () => {
+      el("minutes").value = String(Math.floor(Math.random() * 200));
+      syncFromSlider();
+    });
+
+    el("btnXp").addEventListener("click", () => {
+      currentXp += 30;
+      renderXp();
+    });
+
+    el("btnStreakOk").addEventListener("click", () => {
+      streakDemo = Math.min(streakDemo + 1, 99);
+      renderStreak();
+    });
+    el("btnStreakFail").addEventListener("click", () => {
+      streakDemo = 0;
+      renderStreak();
+    });
+
+    // GitHub Pages 주소 자동 표시 (로컬 file:// 열 때는 안 맞을 수 있음)
+    (function setShareUrl() {
+      const u = window.location.href.split("#")[0];
+      el("shareUrl").value = u;
+      if (u.startsWith("file:")) {
+        el("shareBox").querySelector("p").textContent =
+          "지금은 PC 파일로 연 상태예요. 친구에게 공유하려면 GitHub Pages 주소가 필요해요. (저장소 README의 「웹 데모 공유」 참고)";
+      }
+    })();
+
+    renderStreak();
+    syncFromSlider();
+  </script>
+</body>
+</html>

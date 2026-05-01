@@ -6,6 +6,30 @@
 
 ---
 
+## 웹 데모 (비전공자·친구랑 대화용)
+
+PC에 Android Studio 없이 **브라우저만**으로 “느낌”을 볼 수 있는 페이지가 [`docs/index.html`](docs/index.html) 에 있어요.  
+**가짜 숫자**로 레벨·XP 바·점수 규칙만 체험하는 거라, **실제 SNS 사용 시간과는 연결되지 않아요.**
+
+### 친구에게 링크로 공유하려면 (GitHub Pages, 한 번만 설정)
+
+1. 깃허브에서 이 저장소 열기:  
+   [aimeejung17/260501_d3_20260501_d3_activitytraker](https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker)  
+2. **Settings** → 왼쪽 아래 **Pages**  
+3. **Build and deployment** → **Source**: `Deploy from a branch`  
+4. **Branch**: `main` 선택, 폴더는 **`/docs`** 선택 → **Save**  
+5. 1~2분 뒤 안내에 나오는 주소로 접속 (보통 아래와 비슷해요):
+
+   **`https://aimeejung17.github.io/260501_d3_20260501_d3_activitytraker/`**
+
+이 주소를 카톡·메일로 내면 다른 사람도 같은 데모를 볼 수 있어요.
+
+### PC에서만 파일로 열어보기
+
+`docs/index.html` 파일을 더블클릭(또는 브라우저로 끌어다 놓기)해도 돼요. 이 경우 주소창이 `file://...` 이라 친구에게 **그 주소를 내면 안 되고**, 위 **GitHub Pages** 주소를 쓰면 됩니다.
+
+---
+
 ## 준비물 (한 번만 있으면 됨)
 
 1. **PC** (Windows OK)  
