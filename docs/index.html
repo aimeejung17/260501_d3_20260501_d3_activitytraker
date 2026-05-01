@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#1b5e20" />
-  <title>FlowXP 데모 — 지금은 레벨업 중입니다</title>
-  <meta name="description" content="FlowXP 체험용 웹 데모. 집중·성장 앱 느낌의 UI (실제 SNS 연동 없음)." />
+  <title>FlowXP — 지금은 레벨업 중입니다</title>
+  <meta name="description" content="FlowXP — SNS 사용 시간을 레벨·XP로 보여주는 화면" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Noto+Sans+KR:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -107,18 +107,6 @@
       opacity: 0.85;
       line-height: 1.45;
     }
-
-    .banner {
-      background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
-      border: 1px solid rgba(255, 193, 7, 0.45);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      font-size: 0.82rem;
-      line-height: 1.55;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
-    }
-    .banner strong { color: #e65100; }
 
     .card {
       background: var(--card);
@@ -318,29 +306,6 @@
       opacity: 0.9;
     }
 
-    .share {
-      margin-top: 8px;
-      padding: 18px;
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 2px dashed rgba(67, 160, 71, 0.45);
-      box-shadow: var(--shadow);
-    }
-    .share h3 {
-      margin: 0 0 12px;
-      font-size: 0.95rem;
-      color: var(--accent-deep);
-    }
-    .share input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #c8e6c9;
-      font-size: 0.78rem;
-      background: #fafcfa;
-    }
-    .share p { margin: 10px 0 0; font-size: 0.75rem; color: var(--text-soft); line-height: 1.5; }
-
     footer {
       text-align: center;
       margin-top: 28px;
@@ -375,13 +340,8 @@
           <p class="sub">지금은 레벨업 중입니다</p>
         </div>
       </div>
-      <p class="tagline">SNS 시간을 줄이는 게 아니라, <strong>레벨을 올리는 게임</strong>처럼 보여주는 연습 화면이에요.</p>
+      <p class="tagline">SNS 사용 시간을 <strong>레벨·XP</strong>로 바꿔 보여주는 FlowXP 화면이에요.</p>
     </header>
-
-    <div class="banner">
-      <strong>웹 데모</strong> — 숫자는 이 탭 안에서만 바뀌는 가짜 데이터예요.
-      실제 인스타·유튜브와는 <strong>연결 안 됨</strong>. 진짜 측정은 안드로이드 앱만 가능해요.
-    </div>
 
     <div class="card">
       <div class="card-title">Growth</div>
@@ -397,31 +357,25 @@
 
     <div class="card">
       <div class="card-title">Today</div>
-      <label class="slider-label" for="minutes"><span>⏱</span> 오늘 SNS 사용 (가정, 분)</label>
+      <label class="slider-label" for="minutes"><span>⏱</span> 오늘 SNS 사용 (분)</label>
       <input type="range" id="minutes" min="0" max="240" value="45" />
       <div class="stats">
         <div class="stat">오늘 사용 <b id="minVal">45</b>분</div>
         <div class="stat">점수 <b id="scoreVal">—</b></div>
         <div class="stat">오늘 XP(예상) <b id="xpPreview">—</b></div>
-        <div class="stat">스트릭(연습) <b id="streakVal">0</b>일</div>
+        <div class="stat">스트릭 <b id="streakVal">0</b>일</div>
       </div>
-      <div class="apps-title">앱별 사용 (가정 분배)</div>
+      <div class="apps-title">앱별 사용</div>
       <ul class="apps" id="appList"></ul>
       <div class="btn-row">
         <button type="button" id="btnRandom">랜덤으로 채우기</button>
         <button type="button" class="secondary" id="btnXp">XP +30 받기</button>
       </div>
-      <p class="hint">스트릭은 슬라이더랑 따로예요. 아래는 “하루가 지났다” 상상 연습이에요.</p>
+      <p class="hint">스트릭은 아래 버튼으로 조절해요.</p>
       <div class="btn-row">
-        <button type="button" class="secondary" id="btnStreakOk">오늘 성공(≤60분) 가정</button>
-        <button type="button" class="secondary" id="btnStreakFail">오늘 실패 가정</button>
+        <button type="button" class="secondary" id="btnStreakOk">오늘 성공(≤60분)</button>
+        <button type="button" class="secondary" id="btnStreakFail">오늘 실패</button>
       </div>
-    </div>
-
-    <div class="share" id="shareBox">
-      <h3>친구에게 이 주소 공유</h3>
-      <input type="text" readonly id="shareUrl" value="" />
-      <p>GitHub Pages 켜두면 같은 화면을 링크로 낼 수 있어요. (저장소 README 참고)</p>
     </div>
 
     <footer>
@@ -524,15 +478,6 @@
       streakDemo = 0;
       renderStreak();
     });
-
-    (function setShareUrl() {
-      const u = window.location.href.split("#")[0];
-      el("shareUrl").value = u;
-      if (u.startsWith("file:")) {
-        el("shareBox").querySelector("p").textContent =
-          "지금은 PC 파일로 연 상태예요. 친구에게는 GitHub Pages 주소를 내면 돼요. (README 「웹 데모 공유」)";
-      }
-    })();
 
     renderStreak();
     syncFromSlider();
