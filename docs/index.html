@@ -3,231 +3,436 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1b5e20" />
   <title>FlowXP 데모 — 지금은 레벨업 중입니다</title>
-  <meta name="description" content="FlowXP 안드로이드 앱 UI·규칙 체험용 웹 데모. 실제 SNS 사용 시간과 연동되지 않습니다." />
+  <meta name="description" content="FlowXP 체험용 웹 데모. 집중·성장 앱 느낌의 UI (실제 SNS 연동 없음)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Noto+Sans+KR:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #6750a4;
-      --on-primary: #fff;
-      --surface: #fffbfe;
-      --muted: #625b71;
-      --card: #f7f2fa;
-      --radius: 16px;
+      --sky-top: #7ec8e3;
+      --sky-mid: #b8e6f0;
+      --grass: #c8e6c9;
+      --hill: #66bb6a;
+      --hill-dark: #2e7d32;
+      --card: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(255, 255, 255, 0.85);
+      --text: #1b3d1f;
+      --text-soft: #33691e;
+      --accent: #43a047;
+      --accent-deep: #1b5e20;
+      --sun: #fff9c4;
+      --shadow: 0 8px 32px rgba(27, 94, 32, 0.12);
+      --radius: 22px;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "Segoe UI", system-ui, sans-serif;
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(165deg, #e8def8 0%, var(--surface) 45%);
-      color: #1c1b1f;
-      padding: 24px 16px 48px;
-      max-width: 480px;
+      font-family: "Nunito", "Noto Sans KR", system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 42%, var(--grass) 78%, #a5d6a7 100%);
+      padding: 0 16px 120px;
+      max-width: 440px;
       margin-left: auto;
       margin-right: auto;
+      position: relative;
+      overflow-x: hidden;
     }
+    /* 언덕 실루엣 */
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 0;
+      left: -20%;
+      right: -20%;
+      height: 100px;
+      background: radial-gradient(ellipse 120% 100% at 50% 0%, var(--hill) 0%, var(--hill-dark) 72%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .wrap { position: relative; z-index: 1; padding-top: 20px; }
+
+    /* 태양 장식 */
+    .sun {
+      position: absolute;
+      top: 12px;
+      right: 8%;
+      width: 48px;
+      height: 48px;
+      background: radial-gradient(circle at 30% 30%, #fffef5, var(--sun));
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(255, 235, 120, 0.5);
+      opacity: 0.95;
+    }
+
     header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
+      padding-top: 8px;
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .logo-tree {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.12));
     }
     h1 {
-      font-size: 1.75rem;
-      margin: 0 0 8px;
-      color: var(--primary);
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.02em;
+      color: var(--accent-deep);
+      text-shadow: 0 1px 0 rgba(255,255,255,.6);
     }
     .sub {
-      font-size: 1rem;
-      color: var(--muted);
-      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin: 6px 0 0;
+      opacity: 0.95;
     }
+    .tagline {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 8px;
+      opacity: 0.85;
+      line-height: 1.45;
+    }
+
     .banner {
-      background: #fff3e0;
-      border: 1px solid #ffb74d;
+      background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+      border: 1px solid rgba(255, 193, 7, 0.45);
       border-radius: var(--radius);
-      padding: 12px 14px;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
     }
     .banner strong { color: #e65100; }
+
     .card {
       background: var(--card);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      padding: 22px 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-deep);
+      opacity: 0.75;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .level-ring {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+      border: 4px solid #fff;
+      box-shadow: inset 0 2px 12px rgba(46, 125, 50, 0.15), 0 6px 20px rgba(27, 94, 32, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .level-ring::after {
+      content: "🌱";
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.15));
     }
     .level {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 800;
-      text-align: center;
-      color: var(--primary);
-      margin: 8px 0;
+      color: var(--accent-deep);
+      line-height: 1;
     }
+    .level.level-pop {
+      animation: pop 0.45s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
     .xp-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-soft);
     }
     .bar-wrap {
-      height: 12px;
+      height: 16px;
       background: #e0e0e0;
       border-radius: 999px;
       overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,.08);
     }
     .bar-fill {
       height: 100%;
-      background: var(--primary);
       border-radius: 999px;
-      transition: width 0.25s ease;
+      transition: width 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+      background: linear-gradient(90deg, #81c784, var(--accent), #2e7d32);
+      box-shadow: 0 0 12px rgba(67, 160, 71, 0.5);
     }
+
     label.slider-label {
-      display: block;
-      margin-top: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 10px;
     }
+    .slider-label span { font-size: 1.1rem; }
     input[type="range"] {
       width: 100%;
-      accent-color: var(--primary);
+      height: 10px;
+      accent-color: var(--accent);
+      cursor: pointer;
     }
     .stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 10px;
+      margin-top: 14px;
     }
     .stat {
-      background: #fff;
-      padding: 12px;
-      border-radius: 12px;
+      background: linear-gradient(180deg, #f1f8e9 0%, #e8f5e9 100%);
+      padding: 12px 10px;
+      border-radius: 16px;
       text-align: center;
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      border: 1px solid rgba(129, 199, 132, 0.35);
     }
     .stat b {
       display: block;
-      font-size: 1.25rem;
-      color: #1c1b1f;
-      margin-top: 4px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent-deep);
+      margin-top: 6px;
+      font-family: "Nunito", sans-serif;
+    }
+    .apps-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin: 16px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .apps {
       list-style: none;
       padding: 0;
-      margin: 12px 0 0;
+      margin: 0;
+      background: rgba(255,255,255,.65);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(129, 199, 132, 0.25);
     }
     .apps li {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #e7e0ec;
-      font-size: 0.9rem;
+      align-items: center;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-bottom: 1px dashed rgba(46, 125, 50, 0.15);
     }
+    .apps li:last-child { border-bottom: none; }
+    .apps li span:first-child::before {
+      content: "🍃 ";
+      opacity: 0.85;
+    }
+
     .btn-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
       margin-top: 16px;
     }
     button {
       flex: 1;
-      min-width: 120px;
-      padding: 12px 14px;
+      min-width: 130px;
+      padding: 14px 16px;
       border: none;
       border-radius: 999px;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.88rem;
       cursor: pointer;
-      font-size: 0.9rem;
-      background: var(--primary);
-      color: var(--on-primary);
+      font-family: inherit;
+      background: linear-gradient(180deg, #66bb6a 0%, var(--accent) 55%, var(--accent-deep) 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(46, 125, 50, 0.42);
+    }
+    button:active { transform: translateY(0); }
     button.secondary {
       background: #fff;
-      color: var(--primary);
-      border: 2px solid var(--primary);
+      color: var(--accent-deep);
+      border: 2px solid #81c784;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
+    button.secondary:hover {
+      background: #f1f8e9;
+      box-shadow: 0 4px 12px rgba(46, 125, 32, 0.12);
+    }
+    .hint {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin: 12px 0 6px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .share {
+      margin-top: 8px;
+      padding: 18px;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 2px dashed rgba(67, 160, 71, 0.45);
+      box-shadow: var(--shadow);
+    }
+    .share h3 {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      color: var(--accent-deep);
+    }
+    .share input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #c8e6c9;
+      font-size: 0.78rem;
+      background: #fafcfa;
+    }
+    .share p { margin: 10px 0 0; font-size: 0.75rem; color: var(--text-soft); line-height: 1.5; }
+
     footer {
       text-align: center;
       margin-top: 28px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.6;
+      padding-bottom: 24px;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
     }
-    footer a { color: var(--primary); }
-    .share {
-      margin-top: 20px;
-      padding: 16px;
-      background: #fff;
-      border-radius: var(--radius);
-      border: 1px dashed var(--primary);
+    footer a {
+      color: var(--accent-deep);
+      font-weight: 700;
     }
-    .share h3 { margin: 0 0 10px; font-size: 1rem; }
-    .share input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 0.8rem;
-    }
-    .share p { margin: 8px 0 0; font-size: 0.8rem; color: var(--muted); }
   </style>
 </head>
 <body>
-  <header>
-    <h1>FlowXP</h1>
-    <p class="sub">지금은 레벨업 중입니다</p>
-  </header>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div class="logo-row">
+        <svg class="logo-tree" viewBox="0 0 64 64" aria-hidden="true">
+          <ellipse cx="32" cy="54" rx="10" ry="6" fill="#5d4037"/>
+          <path d="M32 48 L32 28" stroke="#4e342e" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="32" cy="22" r="18" fill="#2e7d32"/>
+          <circle cx="22" cy="28" r="12" fill="#388e3c"/>
+          <circle cx="42" cy="28" r="12" fill="#43a047"/>
+          <circle cx="32" cy="14" r="10" fill="#66bb6a"/>
+        </svg>
+        <div>
+          <h1>FlowXP</h1>
+          <p class="sub">지금은 레벨업 중입니다</p>
+        </div>
+      </div>
+      <p class="tagline">SNS 시간을 줄이는 게 아니라, <strong>레벨을 올리는 게임</strong>처럼 보여주는 연습 화면이에요.<br />(Forest 같은 집중 앱 무드는 참고했어요 · FlowXP는 별도 프로젝트예요)</p>
+    </header>
 
-  <div class="banner">
-    <strong>웹 데모예요.</strong> 숫자는 전부 이 페이지에서만 바뀌는 가짜 데이터이고,
-    실제 인스타·유튜브 사용 시간과는 <strong>연결되지 않아요</strong>.
-    진짜 측정은 안드로이드 앱에서만 됩니다.
-  </div>
-
-  <div class="card">
-    <div style="text-align:center;font-size:0.9rem;color:var(--muted);">Level</div>
-    <div class="level" id="level">1</div>
-    <div class="xp-row">
-      <span>XP</span>
-      <span id="xpText">0 / 100</span>
+    <div class="banner">
+      <strong>웹 데모</strong> — 숫자는 이 탭 안에서만 바뀌는 가짜 데이터예요.
+      실제 인스타·유튜브와는 <strong>연결 안 됨</strong>. 진짜 측정은 안드로이드 앱만 가능해요.
     </div>
-    <div class="bar-wrap"><div class="bar-fill" id="xpBar" style="width:0%"></div></div>
-  </div>
 
-  <div class="card">
-    <label class="slider-label" for="minutes">오늘 SNS 사용 (가정, 분)</label>
-    <input type="range" id="minutes" min="0" max="240" value="45" />
-    <div class="stats">
-      <div class="stat">오늘 사용 <b id="minVal">45</b>분</div>
-      <div class="stat">점수 <b id="scoreVal">—</b></div>
-      <div class="stat">오늘 XP(예상) <b id="xpPreview">—</b></div>
-      <div class="stat">스트릭(연습) <b id="streakVal">0</b>일</div>
+    <div class="card">
+      <div class="card-title">Growth</div>
+      <div class="level-ring">
+        <div class="level" id="level">1</div>
+      </div>
+      <div class="xp-row">
+        <span>경험치 XP</span>
+        <span id="xpText">0 / 100</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="xpBar" style="width:0%"></div></div>
     </div>
-    <ul class="apps" id="appList"></ul>
-    <div class="btn-row">
-      <button type="button" id="btnRandom">랜덤으로 채우기</button>
-      <button type="button" class="secondary" id="btnXp">XP 30 받기 (연습)</button>
-    </div>
-    <p style="font-size:0.8rem;color:var(--muted);margin:12px 0 8px;">스트릭은 슬라이더와 별개예요. 아래는 “상상으로 하루가 지났다” 연습용이에요.</p>
-    <div class="btn-row">
-      <button type="button" class="secondary" id="btnStreakOk">오늘 성공(60분 이하) 가정</button>
-      <button type="button" class="secondary" id="btnStreakFail">오늘 실패 가정</button>
-    </div>
-  </div>
 
-  <div class="share" id="shareBox">
-    <h3>친구랑 이 주소로 공유하기</h3>
-    <input type="text" readonly id="shareUrl" value="" />
-    <p>GitHub Pages를 켜두면 위 주소로 누구나 이 데모를 열 수 있어요. (아래 README 참고)</p>
-  </div>
+    <div class="card">
+      <div class="card-title">Today</div>
+      <label class="slider-label" for="minutes"><span>⏱</span> 오늘 SNS 사용 (가정, 분)</label>
+      <input type="range" id="minutes" min="0" max="240" value="45" />
+      <div class="stats">
+        <div class="stat">오늘 사용 <b id="minVal">45</b>분</div>
+        <div class="stat">점수 <b id="scoreVal">—</b></div>
+        <div class="stat">오늘 XP(예상) <b id="xpPreview">—</b></div>
+        <div class="stat">스트릭(연습) <b id="streakVal">0</b>일</div>
+      </div>
+      <div class="apps-title">앱별 사용 (가정 분배)</div>
+      <ul class="apps" id="appList"></ul>
+      <div class="btn-row">
+        <button type="button" id="btnRandom">랜덤으로 채우기</button>
+        <button type="button" class="secondary" id="btnXp">XP +30 받기</button>
+      </div>
+      <p class="hint">스트릭은 슬라이더랑 따로예요. 아래는 “하루가 지났다” 상상 연습이에요.</p>
+      <div class="btn-row">
+        <button type="button" class="secondary" id="btnStreakOk">오늘 성공(≤60분) 가정</button>
+        <button type="button" class="secondary" id="btnStreakFail">오늘 실패 가정</button>
+      </div>
+    </div>
 
-  <footer>
-    안드로이드 실제 앱 저장소:
-    <a href="https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker" target="_blank" rel="noopener">GitHub</a>
-    <br />점수 규칙은 앱 명세와 동일: 0–30분→10점 … 181분+→0점, XP = 점수×10
-  </footer>
+    <div class="share" id="shareBox">
+      <h3>친구에게 이 주소 공유</h3>
+      <input type="text" readonly id="shareUrl" value="" />
+      <p>GitHub Pages 켜두면 같은 화면을 링크로 낼 수 있어요. (저장소 README 참고)</p>
+    </div>
+
+    <footer>
+      안드로이드 앱 코드:
+      <a href="https://github.com/aimeejung17/260501_d3_20260501_d3_activitytraker" target="_blank" rel="noopener">GitHub</a>
+      · 참고한 분위기:
+      <a href="https://play.google.com/store/apps/details?id=cc.forestapp&amp;hl=ko" target="_blank" rel="noopener">Forest</a>
+      (별도 앱 · 무드만 비슷하게)
+      <br />점수: 0–30분→10점 … 181분+→0점 · XP = 점수×10
+    </footer>
+  </div>
 
   <script>
     function scoreFromMinutes(m) {
@@ -253,9 +458,15 @@
     function renderApps(total) {
       const list = el("appList");
       list.innerHTML = "";
+      if (total <= 0) {
+        const li = document.createElement("li");
+        li.innerHTML = "<span>앱</span><span>0분</span>";
+        list.appendChild(li);
+        return;
+      }
       let left = total;
       apps.forEach((a, i) => {
-        const portion = i === apps.length - 1 ? left : Math.round(total * a.key);
+        const portion = i === apps.length - 1 ? Math.max(0, left) : Math.round(total * a.key);
         left -= portion;
         const li = document.createElement("li");
         li.innerHTML = `<span>${a.name}</span><span>${Math.max(0, portion)}분</span>`;
@@ -264,6 +475,7 @@
     }
 
     function renderXp() {
+      const startLevel = level;
       el("level").textContent = String(level);
       el("xpText").textContent = currentXp + " / 100";
       el("xpBar").style.width = Math.min(100, currentXp) + "%";
@@ -273,6 +485,12 @@
         el("level").textContent = String(level);
         el("xpText").textContent = currentXp + " / 100";
         el("xpBar").style.width = Math.min(100, currentXp) + "%";
+      }
+      if (level > startLevel) {
+        const lv = el("level");
+        lv.classList.remove("level-pop");
+        void lv.offsetWidth;
+        lv.classList.add("level-pop");
       }
     }
 
@@ -289,9 +507,7 @@
       el("streakVal").textContent = String(streakDemo);
     }
 
-    el("minutes").addEventListener("input", () => {
-      syncFromSlider();
-    });
+    el("minutes").addEventListener("input", syncFromSlider);
 
     el("btnRandom").addEventListener("click", () => {
       el("minutes").value = String(Math.floor(Math.random() * 200));
@@ -312,13 +528,12 @@
       renderStreak();
     });
 
-    // GitHub Pages 주소 자동 표시 (로컬 file:// 열 때는 안 맞을 수 있음)
     (function setShareUrl() {
       const u = window.location.href.split("#")[0];
       el("shareUrl").value = u;
       if (u.startsWith("file:")) {
         el("shareBox").querySelector("p").textContent =
-          "지금은 PC 파일로 연 상태예요. 친구에게 공유하려면 GitHub Pages 주소가 필요해요. (저장소 README의 「웹 데모 공유」 참고)";
+          "지금은 PC 파일로 연 상태예요. 친구에게는 GitHub Pages 주소를 내면 돼요. (README 「웹 데모 공유」)";
       }
     })();
 
